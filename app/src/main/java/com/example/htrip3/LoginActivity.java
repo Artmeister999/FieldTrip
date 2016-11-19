@@ -133,7 +133,7 @@ public class LoginActivity extends AppCompatActivity {
     }
 
 
-    public void CheckFromtable(String email, final String password){
+    public void CheckFromtable(final String email, final String password){
         // accTable.where().field("deleted").eq(val(false)).execute(new TableQueryCallback<Account>() {
         accTable.where().field("email").eq(val(email)).execute(new TableQueryCallback<Account>() {
             @Override
@@ -148,6 +148,9 @@ public class LoginActivity extends AppCompatActivity {
                             Log.e("UserName","exisit");
                             Toast.makeText(getApplicationContext(),
                                     "Login success", Toast.LENGTH_LONG).show();
+
+                            ((HtripApp) getApplicationContext()).setUsername(email);
+
                             startActivityMain();
                             LoginActivity.this.finish();
 

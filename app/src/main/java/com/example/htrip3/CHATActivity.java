@@ -35,7 +35,6 @@ public class CHATActivity extends AppCompatActivity {
     private MobileServiceClient mClient;
 
     private RecyclerView chatroomView;
-    //private TextView chatroom;
     private String text123;
     private EditText text5;
     private Button button5;
@@ -46,6 +45,7 @@ public class CHATActivity extends AppCompatActivity {
      */
     private GoogleApiClient client;
     private ChatAdapter chatAdapter;
+    private String username;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -66,6 +66,8 @@ public class CHATActivity extends AppCompatActivity {
         chatAdapter = new ChatAdapter();
         chatroomView.setAdapter(chatAdapter);
 
+        username = ((HtripApp) getApplicationContext()).getUsername();
+
         displayChat();
 
         button5.setOnClickListener(new View.OnClickListener() {
@@ -75,10 +77,9 @@ public class CHATActivity extends AppCompatActivity {
                 Message myAcc = new Message();
 
                 text5 = (EditText) findViewById(R.id.text5);
-                //chatroom = (TextView) findViewById(R.id.chatroom);
 
                 myAcc.TEXT = text5.getText().toString();
-                myAcc.USERINFO = "Arti Yagushenko";
+                myAcc.USERINFO = username;
                 accTable.insert(myAcc);
 
                 text123 = myAcc.TEXT;
@@ -101,18 +102,14 @@ public class CHATActivity extends AppCompatActivity {
     }
 
     private void displayChat() {
-        // Date xx= myAcc.updatedAt;
         accTable.where()
             .field("USERINFO")
-            .eq("Arti Yagushenko")
+            .eq(username)
             .execute(new TableQueryCallback<Message>() {
                 @Override
                 public void onCompleted(List<Message> result, int count,
                     Exception exception, ServiceFilterResponse response) {
                     Log.d("TEST", "onCompleted: " + result.size());
-                            /*for (Message message : result) {
-                                //chatroom.append(message.USERINFO + " : "+ message.TEXT);
-                            }*/
                     chatAdapter.setMessages(result);
                     chatAdapter.notifyDataSetChanged();
                 }

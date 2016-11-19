@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#e3e4e9</color>
+    <color name="colorPrimaryDark">#bfc1c9</color>
+    <color name="colorAccent">#ff4081</color>
+    <color name="accent_material_light_1">#710096</color>
+    <color name="border_color">#9e020202</color>
+    <color name="tv_border_background_color">#93ffffff</color>
+    <color name="clicable">#a2b2d66f</color>
+    <color name="action_bar">#3426ace2</color>
+    <color name="action_bar_dark">#26ace2</color>
+    <color name="red">#8a26d2</color>
+    <color name="background_x">#fafafa</color>
+</resources>

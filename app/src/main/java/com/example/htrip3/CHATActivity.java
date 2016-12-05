@@ -109,7 +109,6 @@ public class CHATActivity extends AppCompatActivity {
                 @Override
                 public void onCompleted(List<Message> result, int count,
                     Exception exception, ServiceFilterResponse response) {
-                    Log.d("TEST", "onCompleted: " + result.size());
                     chatAdapter.setMessages(result);
                     chatAdapter.notifyDataSetChanged();
                 }
@@ -126,7 +125,9 @@ public class CHATActivity extends AppCompatActivity {
 
         public void setMessages(List<Message> messages) {
             this.messages.clear();
-            this.messages.addAll(messages);
+            if (messages != null) {
+                this.messages.addAll(messages);
+            }
         }
 
         @Override

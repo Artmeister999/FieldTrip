@@ -62,7 +62,7 @@ public class SignUpActivity extends AppCompatActivity {
     private EditText edLastName;
     private EditText edEmail;
     private EditText edPassw;
-    private String URL = "http://demohunter.azurewebsites.net";
+    private String URL = "https://demohunter.azurewebsites.net";
     private EditText mEdit;
     private MobileServiceTable<Account> accTable;
     private Boolean UserNExist;

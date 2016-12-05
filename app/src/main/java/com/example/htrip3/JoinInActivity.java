@@ -1,8 +1,8 @@
 package com.example.htrip3;
 
+import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 
 public class JoinInActivity extends AppCompatActivity {
@@ -18,8 +18,5 @@ public class JoinInActivity extends AppCompatActivity {
 
         ActionBar actionBar = getSupportActionBar();
         actionBar.setDisplayHomeAsUpEnabled(true);
-
-
-
     }
 }

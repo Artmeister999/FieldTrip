@@ -12,13 +12,13 @@ import android.widget.ExpandableListView.OnGroupClickListener;
 import android.widget.ExpandableListView.OnGroupCollapseListener;
 import android.widget.ExpandableListView.OnGroupExpandListener;
 import android.widget.Toast;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
 public class MyEventsActivity extends AppCompatActivity {
 
+    public static final String EVENT_ID_EXTRA = "EVENT_NAME";
     ExpandableListAdapter listAdapter;
     ExpandableListView expListView;
     List<String> listDataHeader;
@@ -42,6 +42,7 @@ public class MyEventsActivity extends AppCompatActivity {
 
         // preparing list data
         prepareListData();
+        //fetchEvents();
 
         listAdapter = new ExpandableListAdapter(this, listDataHeader, listDataChild);
 
@@ -52,8 +53,8 @@ public class MyEventsActivity extends AppCompatActivity {
         expListView.setOnGroupClickListener(new OnGroupClickListener() {
 
             @Override
-            public boolean onGroupClick(ExpandableListView parent, View v,
-                                        int groupPosition, long id) {
+            public boolean onGroupClick(ExpandableListView parent, View v, int groupPosition,
+                long id) {
                 // Toast.makeText(getApplicationContext(),
                 // "Group Clicked " + listDataHeader.get(groupPosition),
                 // Toast.LENGTH_SHORT).show();
@@ -67,8 +68,7 @@ public class MyEventsActivity extends AppCompatActivity {
             @Override
             public void onGroupExpand(int groupPosition) {
                 Toast.makeText(getApplicationContext(),
-                        listDataHeader.get(groupPosition) + " Expanded",
-                        Toast.LENGTH_SHORT).show();
+                    listDataHeader.get(groupPosition) + " Expanded", Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -78,9 +78,7 @@ public class MyEventsActivity extends AppCompatActivity {
             @Override
             public void onGroupCollapse(int groupPosition) {
                 Toast.makeText(getApplicationContext(),
-                        listDataHeader.get(groupPosition) + " Collapsed",
-                        Toast.LENGTH_SHORT).show();
-
+                    listDataHeader.get(groupPosition) + " Collapsed", Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -88,24 +86,15 @@ public class MyEventsActivity extends AppCompatActivity {
         expListView.setOnChildClickListener(new OnChildClickListener() {
 
             @Override
-            public boolean onChildClick(ExpandableListView parent, View v,
-                                        int groupPosition, int childPosition, long id) {
+            public boolean onChildClick(ExpandableListView parent, View v, int groupPosition,
+                int childPosition, long id) {
                 // TODO Auto-generated method stub
-                /*
-                Toast.makeText(
-                        getApplicationContext(),
-                        listDataHeader.get(groupPosition)
-                                + " : "
-                                + listDataChild.get(
-                                listDataHeader.get(groupPosition)).get(
-                                childPosition), Toast.LENGTH_SHORT)
-                        .show();
-                */
+
                 if (childPosition == 6) {
-                    Toast.makeText(getApplicationContext(),
-                            "CHAT", Toast.LENGTH_SHORT).show();
-                     Intent intent = new Intent(MyEventsActivity.this, CHATActivity.class);
-                     startActivity(intent);
+                    Toast.makeText(getApplicationContext(), "CHAT", Toast.LENGTH_SHORT).show();
+                    Intent intent = new Intent(MyEventsActivity.this, CHATActivity.class);
+                    intent.putExtra(EVENT_ID_EXTRA, listDataHeader.get(groupPosition));
+                    startActivity(intent);
                     return false;
                 }
 
@@ -157,6 +146,41 @@ public class MyEventsActivity extends AppCompatActivity {
         listDataChild.put(listDataHeader.get(0), event_1); // Header, Child data
         listDataChild.put(listDataHeader.get(1), event_2);
         listDataChild.put(listDataHeader.get(2), event_3);
-
     }
+
+    //TODO: use this when events table is ok
+    /*private void fetchEvents() {
+        listDataHeader = new ArrayList<String>();
+        listDataChild = new HashMap<String, List<String>>();
+        try {
+            MobileServiceClient mClient =
+                new MobileServiceClient(Helpers.URL, MyEventsActivity.this);
+            MobileServiceTable<Event> eventsTable = mClient.getTable(Event.class);
+
+            eventsTable.execute(new TableQueryCallback<Event>() {
+                @Override
+                public void onCompleted(List<Event> events, int count, Exception exception,
+                    ServiceFilterResponse response) {
+                    int i = 0;
+                    for (Event event : events) {
+                        listDataHeader.add(event.getTitle());
+                        //this just dummy data for now -> TODO: use whats on the server later
+                        List<String> event_dummy_date = new ArrayList<String>();
+                        event_dummy_date.add("Event Name");
+                        event_dummy_date.add("Event Title");
+                        event_dummy_date.add("mm/dd/yy 08:08pm");
+                        event_dummy_date.add("Event Location");
+                        event_dummy_date.add("Instrucions:");
+                        event_dummy_date.add("Spots Left: 5");
+                        event_dummy_date.add("CHAT");
+                        listDataChild.put(listDataHeader.get(i), event_dummy_date);
+                    }
+                }
+            });
+        } catch (MobileServiceException e) {
+            e.printStackTrace();
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+        }
+    }*/
 }

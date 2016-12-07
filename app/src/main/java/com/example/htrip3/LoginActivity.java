@@ -11,14 +11,11 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 import com.microsoft.windowsazure.mobileservices.MobileServiceClient;
-import com.microsoft.windowsazure.mobileservices.MobileServiceException;
 import com.microsoft.windowsazure.mobileservices.http.ServiceFilterResponse;
 import com.microsoft.windowsazure.mobileservices.table.MobileServiceTable;
 import com.microsoft.windowsazure.mobileservices.table.TableQueryCallback;
 import java.util.ArrayList;
 import java.util.List;
-
-import static com.microsoft.windowsazure.mobileservices.table.query.QueryOperations.val;
 
 public class LoginActivity extends AppCompatActivity {
 
@@ -74,69 +71,48 @@ public class LoginActivity extends AppCompatActivity {
 
             public void onClick(View view) {
 
-                CheckFromtable(txtEmail.getText().toString(), txtPassword.getText().toString()); //crash SO here
-
-                /*
-                else if ((!txtEmail.getText().toString().equals(""))) {
-                    Toast.makeText(getApplicationContext(),
-                            "Password empty", Toast.LENGTH_SHORT).show();
-                } else if ((!txtPassword.getText().toString().equals(""))) {
-                    Toast.makeText(getApplicationContext(),
-                            "Email empty", Toast.LENGTH_SHORT).show();
-                } else {
-                    Toast.makeText(getApplicationContext(),
-                            "Email and Password field empty", Toast.LENGTH_SHORT).show();
-                }
-                */
-
+                CheckFromtable(txtEmail.getText().toString(),
+                    txtPassword.getText().toString()); //crash SO here
             }
         });
     }
 
     public void CheckFromtable(final String email, final String password) {
-        /*accTable.top(2).execute(new TableQueryCallback<Account>() {
-            @Override
-            public void onCompleted(List<Account> result, int count, Exception exception,
-                ServiceFilterResponse response) {
-                Log.d("TEST", "in onCompleted");
-                if (exception == null) {
-                    Log.d("TEST", "No errors");
-                }
+        accTable.where()
+            .field("email")
+            .eq(email)
+            .execute(new TableQueryCallback<Account>() { //val(email)
+                @Override
+                public void onCompleted(List<Account> result, int count, Exception exception,
+                    ServiceFilterResponse response) {
 
-            }
-        });*/
-                accTable.where().field("email").eq(email).execute(new TableQueryCallback<Account>() { //val(email)
-            @Override
-            public void onCompleted(List<Account> result, int count, Exception exception,
-                ServiceFilterResponse response) {
+                    if (exception == null) {
 
-                if (exception == null) {
+                        Log.e("Email:", result.toString());
+                        if (result.size() != 0) {
+                            if (result.get(0).password.equals(password)) {
 
-                    Log.e("Email:", result.toString());
-                    if (result.size() != 0) {
-                        if (result.get(0).password.equals(password)) {
+                                Log.e("UserName", "exisit");
+                                Toast.makeText(getApplicationContext(), "Login success",
+                                    Toast.LENGTH_LONG).show();
 
-                            Log.e("UserName", "exisit");
-                            Toast.makeText(getApplicationContext(), "Login success",
-                                Toast.LENGTH_LONG).show();
+                                ((HtripApp) getApplicationContext()).setUsername(email);
 
-                            ((HtripApp) getApplicationContext()).setUsername(email);
-
-                            startActivityMain();
-                            LoginActivity.this.finish();
+                                startActivityMain();
+                                LoginActivity.this.finish();
+                            } else {
+                                Log.e("Notfound ", "User not found");
+                            }
                         } else {
-                            Log.e("Notfound ", "User not found");
+
+                            Toast.makeText(getApplicationContext(), "Inccorect email or password",
+                                Toast.LENGTH_LONG).show();
                         }
-                    } else {
 
-                        Toast.makeText(getApplicationContext(), "Inccorect email or password",
-                            Toast.LENGTH_LONG).show();
+                        //Log.e("AccountList",exception.getMessage());
                     }
-
-                    //Log.e("AccountList",exception.getMessage());
                 }
-            }
-        });
+            });
     }
 
     public void startActivitySignUp(View v) {

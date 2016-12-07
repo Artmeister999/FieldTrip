@@ -1,6 +1,5 @@
 package com.example.htrip3;
 
-import android.graphics.drawable.GradientDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
@@ -8,13 +7,13 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import com.example.htrip3.model.Message;
 import com.google.android.gms.appindexing.Action;
 import com.google.android.gms.appindexing.AppIndex;
 import com.google.android.gms.appindexing.Thing;
@@ -26,11 +25,11 @@ import com.microsoft.windowsazure.mobileservices.table.TableQueryCallback;
 import java.net.MalformedURLException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.ExecutionException;
+
+import static com.example.htrip3.MyEventsActivity.EVENT_ID_EXTRA;
 
 public class CHATActivity extends AppCompatActivity {
 
-    private String URL = "http://demohunter.azurewebsites.net";
     private MobileServiceTable<Message> accTable;
     private MobileServiceClient mClient;
 
@@ -46,14 +45,18 @@ public class CHATActivity extends AppCompatActivity {
     private GoogleApiClient client;
     private ChatAdapter chatAdapter;
     private String username;
+    private String eventId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_chat);
 
+        if (getIntent() != null) {
+            eventId = getIntent().getStringExtra(EVENT_ID_EXTRA);
+        }
         try {
-            MobileServiceClient mClient = new MobileServiceClient(URL, CHATActivity.this);
+            MobileServiceClient mClient = new MobileServiceClient(Helpers.URL, CHATActivity.this);
 
             accTable = mClient.getTable(Message.class);
         } catch (MalformedURLException e) {
@@ -80,6 +83,7 @@ public class CHATActivity extends AppCompatActivity {
 
                 myAcc.TEXT = text5.getText().toString();
                 myAcc.USERINFO = username;
+                myAcc.eventId = eventId;
                 accTable.insert(myAcc);
 
                 text123 = myAcc.TEXT;
@@ -103,8 +107,8 @@ public class CHATActivity extends AppCompatActivity {
 
     private void displayChat() {
         accTable.where()
-            .field("USERINFO")
-            .eq(username)
+            .field("eventId")
+            .eq(eventId)
             .execute(new TableQueryCallback<Message>() {
                 @Override
                 public void onCompleted(List<Message> result, int count,

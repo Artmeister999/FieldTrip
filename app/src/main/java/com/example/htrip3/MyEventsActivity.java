@@ -15,14 +15,18 @@ import android.widget.Toast;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class MyEventsActivity extends AppCompatActivity {
 
-    public static final String EVENT_ID_EXTRA = "EVENT_NAME";
+    public static final String EVENT_ID_EXTRA = "event_name";
+    public static final String EVENT_SIGNUP_USERS_EXTRA = "event_signed_up_users";
+
     ExpandableListAdapter listAdapter;
     ExpandableListView expListView;
     List<String> listDataHeader;
     HashMap<String, List<String>> listDataChild;
+    private Map<String, List<String>> signedUpUsersList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -91,10 +95,19 @@ public class MyEventsActivity extends AppCompatActivity {
                 // TODO Auto-generated method stub
 
                 if (childPosition == 6) {
-                    Toast.makeText(getApplicationContext(), "CHAT", Toast.LENGTH_SHORT).show();
-                    Intent intent = new Intent(MyEventsActivity.this, CHATActivity.class);
-                    intent.putExtra(EVENT_ID_EXTRA, listDataHeader.get(groupPosition));
-                    startActivity(intent);
+                    String username = ((HtripApp) getApplicationContext()).getUsername();
+                    final String eventName = listDataHeader.get(groupPosition);
+
+                    if (!signedUpUsersList.get(eventName).contains(username)) {
+                        Toast.makeText(getApplicationContext(), "You are not signed up for this event.", Toast.LENGTH_SHORT).show();
+                    } else {
+                        Toast.makeText(getApplicationContext(), "CHAT", Toast.LENGTH_SHORT).show();
+                        Intent intent = new Intent(MyEventsActivity.this, CHATActivity.class);
+                        intent.putExtra(EVENT_ID_EXTRA, eventName);
+                        intent.putStringArrayListExtra(EVENT_SIGNUP_USERS_EXTRA,
+                            (ArrayList<String>) signedUpUsersList.get(eventName));
+                        startActivity(intent);
+                    }
                     return false;
                 }
 
@@ -109,6 +122,7 @@ public class MyEventsActivity extends AppCompatActivity {
     private void prepareListData() {
         listDataHeader = new ArrayList<String>();
         listDataChild = new HashMap<String, List<String>>();
+        signedUpUsersList = new HashMap<>();
 
         // Adding child data
         listDataHeader.add("Event 1");
@@ -125,6 +139,19 @@ public class MyEventsActivity extends AppCompatActivity {
         event_1.add("Spots Left: 3");
         event_1.add("CHAT");
 
+        //this is just dummy data , once we have a table in the database with subscribed usersSignedUpToEvent1
+        // we can use that
+        List<String> usersSignedUpToEvent1 = new ArrayList<>();
+        usersSignedUpToEvent1.add("jane@myhunter.cuny.edu");
+        usersSignedUpToEvent1.add("bob@myhunter.cuny.edu");
+        signedUpUsersList.put(listDataHeader.get(0), usersSignedUpToEvent1);
+
+        String displaySignedUpUsersEvent1 = "Signed up users: ";
+        for (String user : usersSignedUpToEvent1) {
+            displaySignedUpUsersEvent1 += ", " + user;
+        }
+        event_1.add(displaySignedUpUsersEvent1);
+
         List<String> event_2 = new ArrayList<String>();
         event_2.add("Event Name");
         event_2.add("Event Title");
@@ -134,6 +161,14 @@ public class MyEventsActivity extends AppCompatActivity {
         event_2.add("Spots Left: 4");
         event_2.add("CHAT");
 
+        List<String> usersSignedUpToEvent2 = new ArrayList<>();
+        signedUpUsersList.put(listDataHeader.get(1), usersSignedUpToEvent2);
+        String displaySignedUpUsersEvent2 = "Signed up users: ";
+        for (String user : usersSignedUpToEvent2) {
+            displaySignedUpUsersEvent2 += ", " + user;
+        }
+        event_2.add(displaySignedUpUsersEvent2);
+
         List<String> event_3 = new ArrayList<String>();
         event_3.add("Event Name");
         event_3.add("Event Title");
@@ -142,6 +177,14 @@ public class MyEventsActivity extends AppCompatActivity {
         event_3.add("Instrucions:");
         event_3.add("Spots Left: 5");
         event_3.add("CHAT");
+
+        List<String> usersSignedUpToEvent3 = new ArrayList<>();
+        signedUpUsersList.put(listDataHeader.get(2), usersSignedUpToEvent3);
+        String displaySignedUpUsersEvent3 = "Signed up users: ";
+        for (String user : usersSignedUpToEvent3) {
+            displaySignedUpUsersEvent3 += ", "+ user;
+        }
+        event_3.add(displaySignedUpUsersEvent3);
 
         listDataChild.put(listDataHeader.get(0), event_1); // Header, Child data
         listDataChild.put(listDataHeader.get(1), event_2);

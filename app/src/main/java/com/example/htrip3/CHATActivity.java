@@ -27,6 +27,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static com.example.htrip3.MyEventsActivity.EVENT_ID_EXTRA;
+import static com.example.htrip3.MyEventsActivity.EVENT_SIGNUP_USERS_EXTRA;
 
 public class CHATActivity extends AppCompatActivity {
 
@@ -52,9 +53,6 @@ public class CHATActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_chat);
 
-        if (getIntent() != null) {
-            eventId = getIntent().getStringExtra(EVENT_ID_EXTRA);
-        }
         try {
             MobileServiceClient mClient = new MobileServiceClient(Helpers.URL, CHATActivity.this);
 

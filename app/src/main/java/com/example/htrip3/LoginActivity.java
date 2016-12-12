@@ -19,6 +19,7 @@ import java.util.List;
 
 public class LoginActivity extends AppCompatActivity {
 
+    public List<Account> results = new ArrayList<Account>();
     private Button btnLogin;
     private TextView tvSignUp;
     private TextView tvFotgotPassword;
@@ -26,7 +27,6 @@ public class LoginActivity extends AppCompatActivity {
     private EditText txtPassword;
     private TextView textLoginMessage;
     private Boolean UserTypedInCorrect = false;
-    public List<Account> results = new ArrayList<Account>();
     private MobileServiceClient mClient;
     private String URL = "http://demohunter.azurewebsites.net";
     /*

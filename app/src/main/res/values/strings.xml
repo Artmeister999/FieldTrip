@@ -1,4 +1,8 @@
 <resources>
     <string name="app_name">XXXXX</string>
     <string name="log_out">Log out</string>
+  <string name="create_event">Create Event</string>
+  <string name="event_description">Event Description</string>
+  <string name="event_type">Type</string>
+  <string name="you_joined_event">You have joined the event</string>
 </resources>

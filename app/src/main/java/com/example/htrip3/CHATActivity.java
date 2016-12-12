@@ -26,9 +26,6 @@ import java.net.MalformedURLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.example.htrip3.MyEventsActivity.EVENT_ID_EXTRA;
-import static com.example.htrip3.MyEventsActivity.EVENT_SIGNUP_USERS_EXTRA;
-
 public class CHATActivity extends AppCompatActivity {
 
     private MobileServiceTable<Message> accTable;
@@ -104,17 +101,48 @@ public class CHATActivity extends AppCompatActivity {
     }
 
     private void displayChat() {
-        accTable.where()
-            .field("eventId")
-            .eq(eventId)
-            .execute(new TableQueryCallback<Message>() {
-                @Override
-                public void onCompleted(List<Message> result, int count,
-                    Exception exception, ServiceFilterResponse response) {
-                    chatAdapter.setMessages(result);
-                    chatAdapter.notifyDataSetChanged();
-                }
-            });
+        accTable.where().field("eventId").eq(eventId).execute(new TableQueryCallback<Message>() {
+            @Override
+            public void onCompleted(List<Message> result, int count, Exception exception,
+                ServiceFilterResponse response) {
+                chatAdapter.setMessages(result);
+                chatAdapter.notifyDataSetChanged();
+            }
+        });
+    }
+
+    /**
+     * ATTENTION: This was auto-generated to implement the App Indexing API.
+     * See https://g.co/AppIndexing/AndroidStudio for more information.
+     */
+    public Action getIndexApiAction() {
+        Thing object =
+            new Thing.Builder().setName("CHAT Page") // TODO: Define a title for the content shown.
+                // TODO: Make sure this auto-generated URL is correct.
+                .setUrl(Uri.parse("http://[ENTER-YOUR-URL-HERE]")).build();
+        return new Action.Builder(Action.TYPE_VIEW).setObject(object)
+            .setActionStatus(Action.STATUS_TYPE_COMPLETED)
+            .build();
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+
+        // ATTENTION: This was auto-generated to implement the App Indexing API.
+        // See https://g.co/AppIndexing/AndroidStudio for more information.
+        client.connect();
+        AppIndex.AppIndexApi.start(client, getIndexApiAction());
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+
+        // ATTENTION: This was auto-generated to implement the App Indexing API.
+        // See https://g.co/AppIndexing/AndroidStudio for more information.
+        AppIndex.AppIndexApi.end(client, getIndexApiAction());
+        client.disconnect();
     }
 
     class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.ChatItemViewHolder> {
@@ -160,40 +188,5 @@ public class CHATActivity extends AppCompatActivity {
                 this.text = (TextView) v.findViewById(R.id.text_tv);
             }
         }
-
-    }
-
-    /**
-     * ATTENTION: This was auto-generated to implement the App Indexing API.
-     * See https://g.co/AppIndexing/AndroidStudio for more information.
-     */
-    public Action getIndexApiAction() {
-        Thing object =
-            new Thing.Builder().setName("CHAT Page") // TODO: Define a title for the content shown.
-                // TODO: Make sure this auto-generated URL is correct.
-                .setUrl(Uri.parse("http://[ENTER-YOUR-URL-HERE]")).build();
-        return new Action.Builder(Action.TYPE_VIEW).setObject(object)
-            .setActionStatus(Action.STATUS_TYPE_COMPLETED)
-            .build();
-    }
-
-    @Override
-    public void onStart() {
-        super.onStart();
-
-        // ATTENTION: This was auto-generated to implement the App Indexing API.
-        // See https://g.co/AppIndexing/AndroidStudio for more information.
-        client.connect();
-        AppIndex.AppIndexApi.start(client, getIndexApiAction());
-    }
-
-    @Override
-    public void onStop() {
-        super.onStop();
-
-        // ATTENTION: This was auto-generated to implement the App Indexing API.
-        // See https://g.co/AppIndexing/AndroidStudio for more information.
-        AppIndex.AppIndexApi.end(client, getIndexApiAction());
-        client.disconnect();
     }
 }

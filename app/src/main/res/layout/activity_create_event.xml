@@ -34,18 +34,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
-                <EditText
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/etEvName"
-                    android:background="@drawable/border"
-                    android:layout_marginTop="25sp"
-                    android:textSize="18sp"
-                    android:paddingTop="5sp"
-                    android:paddingBottom="5sp"
-                    android:layout_marginBottom="2sp"
-                    android:hint="Event Name"
-                    android:textColorLink="@color/accent_material_light_1" />
 
                 <EditText
                     android:layout_width="match_parent"
@@ -58,6 +46,33 @@
                     android:layout_marginBottom="2sp"
                     android:layout_marginTop="2sp"
                     android:hint="Event Title" />
+
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/etEvDescription"
+                    android:background="@drawable/border"
+                    android:layout_marginTop="25sp"
+                    android:textSize="18sp"
+                    android:paddingTop="5sp"
+                    android:paddingBottom="5sp"
+                    android:layout_marginBottom="2sp"
+                    android:hint="@string/event_description"
+                    android:textColorLink="@color/accent_material_light_1" />
+
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/etEvType"
+                    android:background="@drawable/border"
+                    android:layout_marginTop="25sp"
+                    android:textSize="18sp"
+                    android:paddingTop="5sp"
+                    android:paddingBottom="5sp"
+                    android:layout_marginBottom="2sp"
+                    android:hint="@string/event_type"
+                    android:textColorLink="@color/accent_material_light_1" />
+
 
                 <LinearLayout
                     android:orientation="vertical"
@@ -190,19 +205,19 @@
 
                 </LinearLayout>
 
-                <Switch
+                <Button
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:id="@+id/switch1"
+                    android:id="@+id/create_button"
                     android:background="@drawable/border_blue"
                     android:textColorLink="@color/action_bar"
-                    android:text="Create Event"
+                    android:text="@string/create_event"
                     android:textSize="18sp"
                     android:textColor="@color/border_color"
-                    android:paddingBottom="10sp"
-                    android:paddingTop="10sp"
-                    android:layout_marginBottom="25sp"
-                    android:layout_marginTop="100sp" />
+                    android:paddingBottom="8dp"
+                    android:paddingTop="8dp"
+                    android:layout_marginBottom="4dp"
+                    android:layout_marginTop="4dp" />
 
             </LinearLayout>
         </ScrollView>

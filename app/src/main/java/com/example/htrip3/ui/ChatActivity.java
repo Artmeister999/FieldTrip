@@ -1,4 +1,4 @@
-package com.example.htrip3;
+package com.example.htrip3.ui;
 
 import android.net.Uri;
 import android.os.Bundle;
@@ -13,6 +13,9 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import com.example.htrip3.Helpers;
+import com.example.htrip3.HtripApp;
+import com.example.htrip3.R;
 import com.example.htrip3.model.Message;
 import com.google.android.gms.appindexing.Action;
 import com.google.android.gms.appindexing.AppIndex;
@@ -26,7 +29,7 @@ import java.net.MalformedURLException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class CHATActivity extends AppCompatActivity {
+public class ChatActivity extends AppCompatActivity {
 
     private MobileServiceTable<Message> accTable;
     private MobileServiceClient mClient;
@@ -51,7 +54,7 @@ public class CHATActivity extends AppCompatActivity {
         setContentView(R.layout.activity_chat);
 
         try {
-            MobileServiceClient mClient = new MobileServiceClient(Helpers.URL, CHATActivity.this);
+            MobileServiceClient mClient = new MobileServiceClient(Helpers.URL, ChatActivity.this);
 
             accTable = mClient.getTable(Message.class);
         } catch (MalformedURLException e) {

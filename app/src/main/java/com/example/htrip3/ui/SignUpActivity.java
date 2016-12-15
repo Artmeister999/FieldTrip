@@ -1,4 +1,4 @@
-package com.example.htrip3;
+package com.example.htrip3.ui;
 
 import android.content.Intent;
 import android.net.Uri;
@@ -11,6 +11,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
+import com.example.htrip3.R;
+import com.example.htrip3.model.Account;
 import com.microsoft.windowsazure.mobileservices.MobileServiceClient;
 import com.microsoft.windowsazure.mobileservices.http.ServiceFilterResponse;
 import com.microsoft.windowsazure.mobileservices.table.MobileServiceTable;
@@ -53,8 +55,6 @@ public class SignUpActivity extends AppCompatActivity {
 
         ActionBar actionBar = getSupportActionBar();
         actionBar.setDisplayHomeAsUpEnabled(true);
-
-        // myAcc = new Account();
 
         Button btnRegister = (Button) findViewById(R.id.btnRegister);
 
@@ -152,81 +152,10 @@ public class SignUpActivity extends AppCompatActivity {
                                 Toast.LENGTH_SHORT).show();
                         }
                     }
-
-                    //Log.e("AccountList",exception.getMessage());
                 }
             }
         });
     }
-/*
-
-        if(UserNExist==true) {
-
-            if(temp.email.toLowerCase().contains(HunterEmail)) {
-
-                accTable.insert(temp);
-                Toast.makeText(getApplicationContext(), "User was created", Toast.LENGTH_SHORT).show();
-                UserNExist=false;
-            }
-            else{
-
-                Toast.makeText(getApplicationContext(), "Not a correct Hunter Email", Toast.LENGTH_SHORT).show();
-            }
-        }else {
-
-
-        }
-
-*/
-
-
-
-        /*
-        Account myAcc = new Account();
-        myAcc.firstname = "Michel787";
-        myAcc.lastname = "Funtes435";
-        myAcc.email = "emai3443l@xxx.com";
-        myAcc.password = "pa3434ss";
-
-/*
-        try {
-            MobileServiceClient mClient = new MobileServiceClient("http://demohunter.azurewebsites.net",this);
-
-            MobileServiceTable <Account> accTable = mClient.getTable(Account.class);
-            accTable.insert(myAcc);
-
-
-
-        } catch (MalformedURLException e) {
-            e.printStackTrace();
-        }
-
-        /*
-        myToolbar.setLogo(R.drawable.ic_logo);
-        myToolbar.setTitle("Login");
-        myToolbar.setDisplayHomeAsUpEnabled(true);
-        //getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        */
-
-    // ActionBar mActionBar = getSupportActionBar();
-    //mActionBar.setDisplayOptions(ActionBar.DISPLAY_HOME_AS_UP | ActionBar.DISPLAY_SHOW_CUSTOM
-    //     | ActionBar.DISPLAY_SHOW_TITLE | ActionBar.DISPLAY_USE_LOGO);
-    //getActionBar().setHomeButtonEnabled(true);
-    //getActionBar().setDisplayHomeAsUpEnabled(true);
-
-        /*/
-
-        btnRegisterBack = (Button) findViewById(R.id.btnRegisterBack);
-
-        btnRegisterBack.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View view) {
-                Intent myIntent = new Intent(view.getContext(), LoginActivity.class);
-                startActivityForResult(myIntent, 0);
-                finish();
-            }
-
-        });
-        /*/
 }
 
 

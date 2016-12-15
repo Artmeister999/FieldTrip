@@ -24,5 +24,4 @@ public class Joined {
     public String getEventId() {
         return eventId;
     }
-
 }

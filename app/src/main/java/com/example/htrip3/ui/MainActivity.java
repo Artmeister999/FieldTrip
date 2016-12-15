@@ -1,4 +1,4 @@
-package com.example.htrip3;
+package com.example.htrip3.ui;
 
 import android.content.Context;
 import android.content.Intent;
@@ -13,8 +13,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.BaseAdapter;
+import android.widget.CalendarView;
 import android.widget.ListView;
 import android.widget.TextView;
+import com.example.htrip3.Helpers;
+import com.example.htrip3.R;
 import com.example.htrip3.model.Event;
 import com.microsoft.windowsazure.mobileservices.MobileServiceClient;
 import com.microsoft.windowsazure.mobileservices.http.ServiceFilterResponse;
@@ -22,6 +25,7 @@ import com.microsoft.windowsazure.mobileservices.table.MobileServiceTable;
 import com.microsoft.windowsazure.mobileservices.table.TableQueryCallback;
 import java.net.MalformedURLException;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
@@ -41,6 +45,21 @@ public class MainActivity extends AppCompatActivity {
         setSupportActionBar(myToolbar);
         myToolbar.setLogo(R.drawable.ic_logo);
 
+        final TextView dateHeaderTextView = (TextView) findViewById(R.id.dateHeader);
+        final CalendarView calendarView = (CalendarView) findViewById(R.id.calendarView);
+        calendarView.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
+            @Override
+            public void onSelectedDayChange(@NonNull CalendarView calendarView, int year, int month,
+                int dayOfMonth) {
+                dateHeaderTextView.setText(dayOfMonth + "/" + (month + 1) + "/" + year);
+                myEvents.clear();
+                fetchEvents(year, month + 1, dayOfMonth);
+            }
+        });
+    }
+
+    private void fetchEvents(final int year, final int month, final int day) {
+        //private void fetchEvents(String date) {
         try {
             MobileServiceClient client = new MobileServiceClient(Helpers.URL, this);
             eventTable = client.getTable(Event.class);
@@ -52,7 +71,19 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onCompleted(List<Event> events, int count, Exception exception,
                 ServiceFilterResponse response) {
-                myEvents.addAll(events);
+                List<Event> matchedEvents = new ArrayList<Event>();
+                for (Event event : events) {
+                    Calendar calendar = Calendar.getInstance();
+                    calendar.setTime(event.getDate());
+
+                    if ((calendar.get(Calendar.DAY_OF_MONTH) == day) &&
+                        (calendar.get(Calendar.MONTH) + 1 == month) &&
+                        (calendar.get(Calendar.YEAR) == year)) {
+                        matchedEvents.add(event);
+                    }
+                }
+
+                myEvents.addAll(matchedEvents);
                 displayEventsList();
             }
         });

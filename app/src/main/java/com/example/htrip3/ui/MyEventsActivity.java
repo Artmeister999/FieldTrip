@@ -1,4 +1,4 @@
-package com.example.htrip3;
+package com.example.htrip3.ui;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -11,6 +11,9 @@ import android.widget.ExpandableListView;
 import android.widget.ExpandableListView.OnChildClickListener;
 import android.widget.ExpandableListView.OnGroupClickListener;
 import android.widget.Toast;
+import com.example.htrip3.Helpers;
+import com.example.htrip3.HtripApp;
+import com.example.htrip3.R;
 import com.example.htrip3.model.Event;
 import com.example.htrip3.model.Joined;
 import com.microsoft.windowsazure.mobileservices.MobileServiceClient;
@@ -83,7 +86,7 @@ public class MyEventsActivity extends AppCompatActivity {
                     final int childDataSize = listDataChild.get(eventName).size();
                     if (listDataChild.get(eventName).get(childDataSize - 1).contains(username)) {
                         Toast.makeText(getApplicationContext(), "CHAT", Toast.LENGTH_SHORT).show();
-                        Intent intent = new Intent(MyEventsActivity.this, CHATActivity.class);
+                        Intent intent = new Intent(MyEventsActivity.this, ChatActivity.class);
                         intent.putExtra(EVENT_ID_EXTRA, eventName);
                         startActivity(intent);
                     } else {
@@ -151,12 +154,10 @@ public class MyEventsActivity extends AppCompatActivity {
                                 }
                             });
                     }
-
                 }
             });
         } catch (MalformedURLException e) {
             e.printStackTrace();
         }
     }
-
 }

@@ -1,4 +1,4 @@
-package com.example.htrip3;
+package com.example.htrip3.ui;
 
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
@@ -9,6 +9,9 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import com.example.htrip3.Helpers;
+import com.example.htrip3.HtripApp;
+import com.example.htrip3.R;
 import com.example.htrip3.model.Event;
 import com.example.htrip3.model.Joined;
 import com.microsoft.windowsazure.mobileservices.MobileServiceClient;

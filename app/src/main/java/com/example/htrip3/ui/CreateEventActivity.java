@@ -1,4 +1,4 @@
-package com.example.htrip3;
+package com.example.htrip3.ui;
 
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
@@ -11,6 +11,8 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.NumberPicker;
 import android.widget.TimePicker;
+import com.example.htrip3.Helpers;
+import com.example.htrip3.R;
 import com.example.htrip3.model.Event;
 import com.microsoft.windowsazure.mobileservices.MobileServiceClient;
 import com.microsoft.windowsazure.mobileservices.http.ServiceFilterResponse;

@@ -1,8 +1,4 @@
-package com.example.htrip3;
-
-/**
- * Created by garvinchen on 10/24/16.
- */
+package com.example.htrip3.model;
 
 public class Account {
 
@@ -15,6 +11,6 @@ public class Account {
     @com.google.gson.annotations.SerializedName("firstname") public String firstname;
     @com.google.gson.annotations.SerializedName("lastname") public String lastname;
     @com.google.gson.annotations.SerializedName("verStatus") public Boolean verStatus;
-    @com.google.gson.annotations.SerializedName("password") String password;
-    @com.google.gson.annotations.SerializedName("email") String email;
+    @com.google.gson.annotations.SerializedName("password") public String password;
+    @com.google.gson.annotations.SerializedName("email") public String email;
 }

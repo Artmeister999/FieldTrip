@@ -1,4 +1,4 @@
-package com.example.htrip3;
+package com.example.htrip3.ui;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -10,16 +10,17 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
+import com.example.htrip3.HtripApp;
+import com.example.htrip3.R;
+import com.example.htrip3.model.Account;
 import com.microsoft.windowsazure.mobileservices.MobileServiceClient;
 import com.microsoft.windowsazure.mobileservices.http.ServiceFilterResponse;
 import com.microsoft.windowsazure.mobileservices.table.MobileServiceTable;
 import com.microsoft.windowsazure.mobileservices.table.TableQueryCallback;
-import java.util.ArrayList;
 import java.util.List;
 
 public class LoginActivity extends AppCompatActivity {
 
-    public List<Account> results = new ArrayList<Account>();
     private Button btnLogin;
     private TextView tvSignUp;
     private TextView tvFotgotPassword;
@@ -29,10 +30,7 @@ public class LoginActivity extends AppCompatActivity {
     private Boolean UserTypedInCorrect = false;
     private MobileServiceClient mClient;
     private String URL = "http://demohunter.azurewebsites.net";
-    /*
-    private Button btnRegisterBack;
-    private MobileServiceTable <Account> accTable;
-    */
+
     private MobileServiceTable<Account> accTable;
 
     @Override
@@ -41,7 +39,7 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-        Intent intent = new Intent(LoginActivity.this, CHATActivity.class);
+        Intent intent = new Intent(LoginActivity.this, ChatActivity.class);
         startActivity(intent);
 
         //Set up the toolbar
@@ -53,9 +51,6 @@ public class LoginActivity extends AppCompatActivity {
             mClient = new MobileServiceClient(URL, LoginActivity.this);
 
             accTable = mClient.getTable(Account.class);
-            //results = accTable.execute().get();
-
-            //CheckFromtable(txtEmail.getText().toString(),txtPassword.getText().toString());
         } catch (Exception exception) {
             //	                createAndShowDialog(exception, "Error");
         }
@@ -71,8 +66,7 @@ public class LoginActivity extends AppCompatActivity {
 
             public void onClick(View view) {
 
-                CheckFromtable(txtEmail.getText().toString(),
-                    txtPassword.getText().toString()); //crash SO here
+                CheckFromtable(txtEmail.getText().toString(), txtPassword.getText().toString());
             }
         });
     }
@@ -129,12 +123,6 @@ public class LoginActivity extends AppCompatActivity {
         Intent intent = new Intent(LoginActivity.this, MainActivity.class);
         startActivity(intent);
     }
-
-    /*
-    public void finishActivityA(View v) {
-        ActivityA.this.finish();
-    }
-    */
 }
 
 

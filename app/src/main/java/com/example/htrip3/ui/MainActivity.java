@@ -59,7 +59,6 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void fetchEvents(final int year, final int month, final int day) {
-        //private void fetchEvents(String date) {
         try {
             MobileServiceClient client = new MobileServiceClient(Helpers.URL, this);
             eventTable = client.getTable(Event.class);

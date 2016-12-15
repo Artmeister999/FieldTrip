@@ -108,13 +108,11 @@ public class MyEventsActivity extends AppCompatActivity {
 
             eventTable.select().execute(new TableQueryCallback<Event>() {
                 @Override
-                public void onCompleted(List<Event> events, int count, Exception exception,
+                public void onCompleted(final List<Event> events, int count, Exception exception,
                     ServiceFilterResponse response) {
                     Log.d("TEST", "Query done");
                     final int[] i = { 0 };
-                    for (Event event : events) {
-                        listDataHeader.add(event.getTitle());
-
+                    for (final Event event : events) {
                         final String eventId = event.getId();
 
                         final List<String> eventData = new ArrayList<String>();
@@ -144,16 +142,21 @@ public class MyEventsActivity extends AppCompatActivity {
                                         joinedUsers += j.getUserId() + ", ";
                                     }
                                     eventData.add(joinedUsers);
+                                    listDataHeader.add(event.getTitle());
                                     listDataChild.put(listDataHeader.get(i[0]), eventData);
                                     i[0]++;
+                                    if (i[0] == events.size()) {
+                                        createEventsUi();
+                                    }
                                 }
                             });
                     }
-                    createEventsUi();
+
                 }
             });
         } catch (MalformedURLException e) {
             e.printStackTrace();
         }
     }
+
 }

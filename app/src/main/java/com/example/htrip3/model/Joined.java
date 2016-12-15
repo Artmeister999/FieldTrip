@@ -5,17 +5,17 @@ import java.util.Date;
 
 public class Joined {
 
+    public @SerializedName("deleted") boolean deleted;
+
     public @SerializedName("id") String id;
-
-    public @SerializedName("user_id") String userId;
-
-    public @SerializedName("event_id") String eventId;
 
     public @SerializedName("createdAt") Date createdAt;
 
+    public @SerializedName("event_id") String eventId;
+
     public @SerializedName("updatedAt") Date updatedAt;
 
-    public @SerializedName("deleted") boolean deleted;
+    public @SerializedName("user_id") String userId;
 
     public String getUserId() {
         return userId;
@@ -24,4 +24,5 @@ public class Joined {
     public String getEventId() {
         return eventId;
     }
+
 }

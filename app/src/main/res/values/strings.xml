@@ -5,4 +5,5 @@
   <string name="event_description">Event Description</string>
   <string name="event_type">Type</string>
   <string name="you_joined_event">You have joined the event</string>
+  <string name="error_occured">Error occured, Try again</string>
 </resources>

@@ -82,8 +82,13 @@ public class JoinInActivity extends AppCompatActivity {
                     public void onCompleted(Joined entity, Exception exception,
                         ServiceFilterResponse response) {
                         Log.d("TEST", "Joined inserted.");
-                        Snackbar.make(findViewById(R.id.main_content), R.string.you_joined_event,
-                            Snackbar.LENGTH_LONG).show();
+                        if (exception == null) {
+                            Snackbar.make(findViewById(R.id.main_content),
+                                R.string.you_joined_event, Snackbar.LENGTH_LONG).show();
+                        } else {
+                            Snackbar.make(findViewById(R.id.main_content), R.string.error_occured,
+                                Snackbar.LENGTH_LONG).show();
+                        }
                     }
                 });
             }

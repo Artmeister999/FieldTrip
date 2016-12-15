@@ -51,7 +51,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onSelectedDayChange(@NonNull CalendarView calendarView, int year, int month,
                 int dayOfMonth) {
-                dateHeaderTextView.setText(dayOfMonth + "/" + (month + 1) + "/" + year);
+                dateHeaderTextView.setText((month + 1) + "/" + dayOfMonth + "/" + year);
                 myEvents.clear();
                 fetchEvents(year, month + 1, dayOfMonth);
             }
